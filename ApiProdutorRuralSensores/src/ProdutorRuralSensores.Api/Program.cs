@@ -19,7 +19,7 @@ using ProdutorRuralSensores.Infrastructure.Monitoring;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilogConfiguration();
-// builder.WebHost.UseUrls("http://*:80"); // Desabilitado para permitir configuração externa
+builder.WebHost.UseUrls("http://*:5002");
 
 builder.Services.AddMvcCore(options => options.AddLogRequestFilter());
 builder.Services.AddVersioning();
