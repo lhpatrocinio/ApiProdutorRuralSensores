@@ -19,7 +19,7 @@ using ProdutorRuralSensores.Infrastructure.Monitoring;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilogConfiguration();
-builder.WebHost.UseUrls("http://*:80");
+// builder.WebHost.UseUrls("http://*:80"); // Desabilitado para permitir configuraÃ§Ã£o externa
 
 builder.Services.AddMvcCore(options => options.AddLogRequestFilter());
 builder.Services.AddVersioning();
@@ -67,7 +67,7 @@ var app = builder.Build();
 app.ExecuteMigrations();
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
-app.UseAuthentication();                        // 1°: popula HttpContext.User
+app.UseAuthentication();                        // 1ï¿½: popula HttpContext.User
 app.UseMiddleware<RoleAuthorizationMiddleware>();
 app.UseCorrelationId();
 app.UseELKIntegration();
@@ -78,7 +78,7 @@ app.UseCors("AllowAll");
 app.UsePrometheusMonitoring();
 
 app.UseVersionedSwagger(apiVersionDescriptionProvider);
-app.UseAuthorization();                         // 3°: aplica [Authorize]
+app.UseAuthorization();                         // 3ï¿½: aplica [Authorize]
 //app.UseHttpsRedirection();
 app.MapControllers();
 

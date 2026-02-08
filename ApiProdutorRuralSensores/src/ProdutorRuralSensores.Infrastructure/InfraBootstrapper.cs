@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ProdutorRuralSensores.Application.Repository;
+using ProdutorRuralSensores.Application.Services.Interfaces;
+using ProdutorRuralSensores.Domain.Interfaces;
 using ProdutorRuralSensores.Infrastructure.DataBase.Repository;
+using ProdutorRuralSensores.Infrastructure.Messaging;
 
 namespace ProdutorRuralSensores.Infrastructure
 {
@@ -9,7 +11,14 @@ namespace ProdutorRuralSensores.Infrastructure
     {
         public static void Register(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IProdutorRuralSensoresRepository, ProdutorRuralSensoresRepository>();         
+            // Repositories
+            services.AddScoped<ISensorRepository, SensorRepository>();
+            services.AddScoped<ILeituraSensorRepository, LeituraSensorRepository>();
+
+            // RabbitMQ
+            services.AddSingleton<RabbitMqSetup>();
+            services.AddScoped<ISensorDataPublisher, SensorDataPublisher>();
+            services.AddScoped<ILeituraEventPublisher, LeituraEventPublisherAdapter>();
         }
     }
 }

@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using ProdutorRuralSensores.Application.DTOs.Request;
 using ProdutorRuralSensores.Application.Services;
 using ProdutorRuralSensores.Application.Services.Interfaces;
+using ProdutorRuralSensores.Application.Validators;
 
 namespace ProdutorRuralSensores.Application
 {
@@ -8,7 +11,15 @@ namespace ProdutorRuralSensores.Application
     {
         public static void Register(IServiceCollection services)
         {
-            services.AddTransient<IProdutorRuralSensoresService, ProdutorRuralSensoresService>();
+            // Services
+            services.AddScoped<ISensorService, SensorService>();
+            services.AddScoped<ILeituraService, LeituraService>();
+
+            // Validators
+            services.AddScoped<IValidator<SensorCreateRequest>, SensorCreateRequestValidator>();
+            services.AddScoped<IValidator<SensorUpdateRequest>, SensorUpdateRequestValidator>();
+            services.AddScoped<IValidator<LeituraCreateRequest>, LeituraCreateRequestValidator>();
+            services.AddScoped<IValidator<LeituraBatchRequest>, LeituraBatchRequestValidator>();
         }
     }
 }
