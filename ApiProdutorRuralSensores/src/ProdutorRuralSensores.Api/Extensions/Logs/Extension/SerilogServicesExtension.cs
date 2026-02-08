@@ -13,8 +13,8 @@ namespace ProdutorRuralSensores.Api.Extensions.Logs.Extension
     {
         public static WebApplicationBuilder AddSerilogConfiguration(this WebApplicationBuilder builder)
         {
-            var serviceName = "Games.Api";
-            var servicePort = 7000;
+            var serviceName = "Sensores.Api";
+            var servicePort = 5002;
 
             builder.Host.UseSerilog((context, logger) =>
             {

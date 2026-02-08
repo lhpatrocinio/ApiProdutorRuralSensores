@@ -4,10 +4,10 @@
             "commandName": "DockerCompose",
             "commandVersion": "1.0",
             "composeLaunchAction": "LaunchBrowser",
-            "composeLaunchServiceName": "games.api",
+            "composeLaunchServiceName": "sensores.api",
             "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
             "serviceActions": {
-                "core.postech8nett.api": "StartDebugging",
+                "sensores.api": "StartDebugging",
                 "sqlserver": "StartWithoutDebugging"
             }
         }
