@@ -1,9 +1,9 @@
 version: '3.4'
-name: ApiProdutorRuralSensores
+name: apiprodutorruralsensores
 services:
-  ProdutorRuralSensores.api:
-    image: ${DOCKER_REGISTRY-}ProdutorRuralSensoresapi
-    container_name: ApiProdutorRuralSensores
+  produtorruralsensores.api:
+    image: ${DOCKER_REGISTRY-}produtorruralsensoresapi
+    container_name: apiprodutorruralsensores
     build:
       context: .
       dockerfile: src/ProdutorRuralSensores.Api/Dockerfile

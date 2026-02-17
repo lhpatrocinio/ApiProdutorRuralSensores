@@ -19,7 +19,7 @@ using ProdutorRuralSensores.Infrastructure.Monitoring;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilogConfiguration();
-builder.WebHost.UseUrls("http://*:5002");
+builder.WebHost.UseUrls("http://*:80");
 
 builder.Services.AddMvcCore(options => options.AddLogRequestFilter());
 builder.Services.AddVersioning();
@@ -64,7 +64,7 @@ builder.Services.AddDistributedTracing(builder.Configuration);
 
 var app = builder.Build();
 
-app.ExecuteMigrations();
+//app.ExecuteMigrations();
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 app.UseAuthentication();                        // 1�: popula HttpContext.User
