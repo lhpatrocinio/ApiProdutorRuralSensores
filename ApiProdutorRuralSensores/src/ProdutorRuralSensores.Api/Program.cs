@@ -19,7 +19,8 @@ using ProdutorRuralSensores.Infrastructure.Monitoring;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilogConfiguration();
-builder.WebHost.UseUrls("http://*:80");
+var port = Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORTS") ?? "5002";
+builder.WebHost.UseUrls($"http://*:{port}");
 
 builder.Services.AddMvcCore(options => options.AddLogRequestFilter());
 builder.Services.AddVersioning();
