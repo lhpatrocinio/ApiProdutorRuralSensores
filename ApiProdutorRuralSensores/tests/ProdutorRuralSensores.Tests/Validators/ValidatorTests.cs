@@ -68,7 +68,9 @@ public class SensorCreateRequestValidatorTests
     {
         var request = new SensorCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), Codigo = "S1", Tipo = "TipoInvalido"
+            TalhaoId = Guid.NewGuid(),
+            Codigo = "S1",
+            Tipo = "TipoInvalido"
         };
 
         var result = _validator.TestValidate(request);
@@ -84,7 +86,9 @@ public class SensorCreateRequestValidatorTests
     {
         var request = new SensorCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), Codigo = "S1", Tipo = tipo
+            TalhaoId = Guid.NewGuid(),
+            Codigo = "S1",
+            Tipo = tipo
         };
 
         var result = _validator.TestValidate(request);
@@ -97,8 +101,10 @@ public class SensorCreateRequestValidatorTests
     {
         var request = new SensorCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), Codigo = "S1",
-            Tipo = TipoSensor.Temperatura, Latitude = 91m
+            TalhaoId = Guid.NewGuid(),
+            Codigo = "S1",
+            Tipo = TipoSensor.Temperatura,
+            Latitude = 91m
         };
 
         var result = _validator.TestValidate(request);
@@ -111,8 +117,10 @@ public class SensorCreateRequestValidatorTests
     {
         var request = new SensorCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), Codigo = "S1",
-            Tipo = TipoSensor.Temperatura, Longitude = -181m
+            TalhaoId = Guid.NewGuid(),
+            Codigo = "S1",
+            Tipo = TipoSensor.Temperatura,
+            Longitude = -181m
         };
 
         var result = _validator.TestValidate(request);
@@ -146,7 +154,9 @@ public class LeituraCreateRequestValidatorTests
     {
         var request = new LeituraCreateRequest
         {
-            TalhaoId = Guid.Empty, SensorId = Guid.NewGuid(), Temperatura = 25m
+            TalhaoId = Guid.Empty,
+            SensorId = Guid.NewGuid(),
+            Temperatura = 25m
         };
 
         var result = _validator.TestValidate(request);
@@ -159,7 +169,8 @@ public class LeituraCreateRequestValidatorTests
     {
         var request = new LeituraCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), Temperatura = 25m
+            TalhaoId = Guid.NewGuid(),
+            Temperatura = 25m
         };
 
         var result = _validator.TestValidate(request);
@@ -172,7 +183,8 @@ public class LeituraCreateRequestValidatorTests
     {
         var request = new LeituraCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), SensorId = Guid.NewGuid(),
+            TalhaoId = Guid.NewGuid(),
+            SensorId = Guid.NewGuid(),
             UmidadeSolo = 101m
         };
 
@@ -186,7 +198,8 @@ public class LeituraCreateRequestValidatorTests
     {
         var request = new LeituraCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), SensorId = Guid.NewGuid(),
+            TalhaoId = Guid.NewGuid(),
+            SensorId = Guid.NewGuid(),
             Temperatura = -51m
         };
 
@@ -200,7 +213,8 @@ public class LeituraCreateRequestValidatorTests
     {
         var request = new LeituraCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), SensorId = Guid.NewGuid(),
+            TalhaoId = Guid.NewGuid(),
+            SensorId = Guid.NewGuid(),
             Precipitacao = -1m
         };
 
@@ -214,7 +228,8 @@ public class LeituraCreateRequestValidatorTests
     {
         var request = new LeituraCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), SensorId = Guid.NewGuid()
+            TalhaoId = Guid.NewGuid(),
+            SensorId = Guid.NewGuid()
         };
 
         var result = _validator.TestValidate(request);
@@ -227,8 +242,10 @@ public class LeituraCreateRequestValidatorTests
     {
         var request = new LeituraCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), SensorId = Guid.NewGuid(),
-            PressaoAtmosferica = 700m, Temperatura = 25m
+            TalhaoId = Guid.NewGuid(),
+            SensorId = Guid.NewGuid(),
+            PressaoAtmosferica = 700m,
+            Temperatura = 25m
         };
 
         var result = _validator.TestValidate(request);

@@ -91,8 +91,10 @@ public class SensorServiceTests
     {
         var request = new SensorCreateRequest
         {
-            TalhaoId = Guid.NewGuid(), Codigo = "SENS-002",
-            Tipo = TipoSensor.Umidade, Modelo = "SHT30"
+            TalhaoId = Guid.NewGuid(),
+            Codigo = "SENS-002",
+            Tipo = TipoSensor.Umidade,
+            Modelo = "SHT30"
         };
         var response = new SensorResponse { Id = Guid.NewGuid(), Codigo = "SENS-002", Ativo = true };
         _repoMock.Setup(r => r.AddAsync(It.IsAny<Sensor>()))
@@ -119,7 +121,9 @@ public class SensorServiceTests
 
         var request = new SensorUpdateRequest
         {
-            Codigo = "SENS-UPD", Tipo = TipoSensor.Multiparametro, Ativo = true
+            Codigo = "SENS-UPD",
+            Tipo = TipoSensor.Multiparametro,
+            Ativo = true
         };
         var result = await _service.UpdateAsync(id, request);
 

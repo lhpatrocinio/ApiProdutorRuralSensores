@@ -179,8 +179,12 @@ public class LeituraServiceTests
         var talhaoId = Guid.NewGuid();
         var ultimaLeitura = new LeituraSensor
         {
-            TalhaoId = talhaoId, UmidadeSolo = 50m, Temperatura = 28m,
-            Precipitacao = 5m, UmidadeAr = 60m, DataHoraLeitura = DateTime.UtcNow
+            TalhaoId = talhaoId,
+            UmidadeSolo = 50m,
+            Temperatura = 28m,
+            Precipitacao = 5m,
+            UmidadeAr = 60m,
+            DataHoraLeitura = DateTime.UtcNow
         };
         var sensores = new List<Sensor>
         {
@@ -221,7 +225,10 @@ public class LeituraServiceTests
         var responses = new List<LeituraResponse> { new() { TalhaoId = talhaoId } };
         var filtro = new LeituraFiltroRequest
         {
-            TalhaoId = talhaoId, DataInicio = inicio, DataFim = fim, Limite = 100
+            TalhaoId = talhaoId,
+            DataInicio = inicio,
+            DataFim = fim,
+            Limite = 100
         };
 
         _leituraRepoMock.Setup(r => r.GetByPeriodoAsync(talhaoId, inicio, fim)).ReturnsAsync(leituras);
