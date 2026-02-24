@@ -60,8 +60,8 @@ public class LeituraService : ILeituraService
         if (filtros.TalhaoId.HasValue && filtros.DataInicio.HasValue && filtros.DataFim.HasValue)
         {
             leituras = await _leituraRepository.GetByPeriodoAsync(
-                filtros.TalhaoId.Value, 
-                filtros.DataInicio.Value, 
+                filtros.TalhaoId.Value,
+                filtros.DataInicio.Value,
                 filtros.DataFim.Value);
         }
         else if (filtros.SensorId.HasValue)
@@ -153,9 +153,9 @@ public class LeituraService : ILeituraService
         }
 
         var created = await _leituraRepository.AddAsync(leitura);
-        
+
         var response = _mapper.Map<LeituraResponse>(created);
-        
+
         // Buscar código do sensor se disponível
         if (created.SensorId.HasValue)
         {
@@ -175,7 +175,7 @@ public class LeituraService : ILeituraService
     public async Task<IEnumerable<LeituraResponse>> CreateBatchAsync(LeituraBatchRequest request)
     {
         var responses = new List<LeituraResponse>();
-        
+
         foreach (var leituraRequest in request.Leituras)
         {
             var response = await CreateAsync(leituraRequest);
@@ -186,9 +186,9 @@ public class LeituraService : ILeituraService
     }
 
     public async Task<IEnumerable<LeituraAgregadaResponse>> GetAgregadoAsync(
-        Guid talhaoId, 
-        DateTime inicio, 
-        DateTime fim, 
+        Guid talhaoId,
+        DateTime inicio,
+        DateTime fim,
         string agregacao)
     {
         var leituras = await _leituraRepository.GetByPeriodoAsync(talhaoId, inicio, fim);
@@ -202,9 +202,9 @@ public class LeituraService : ILeituraService
         if (agregacao.ToLower() == "hora")
         {
             grupos = listaLeituras.GroupBy(l => new DateTime(
-                l.DataHoraLeitura.Year, 
-                l.DataHoraLeitura.Month, 
-                l.DataHoraLeitura.Day, 
+                l.DataHoraLeitura.Year,
+                l.DataHoraLeitura.Month,
+                l.DataHoraLeitura.Day,
                 l.DataHoraLeitura.Hour, 0, 0));
         }
         else // dia

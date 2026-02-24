@@ -12,7 +12,7 @@ namespace ProdutorRuralSensores.Infrastructure.DataBase.EntityFramework.Context
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var basePath = Path.Combine(Directory.GetCurrentDirectory(), "../ProdutorRuralSensores.Api");
-            
+
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)

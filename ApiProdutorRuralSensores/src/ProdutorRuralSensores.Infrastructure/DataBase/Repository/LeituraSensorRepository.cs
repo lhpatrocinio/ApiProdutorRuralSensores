@@ -65,8 +65,8 @@ public class LeituraSensorRepository : ILeituraSensorRepository
         return await _context.LeiturasSensores
             .AsNoTracking()
             .Include(l => l.Sensor)
-            .Where(l => l.TalhaoId == talhaoId && 
-                        l.DataHoraLeitura >= inicio && 
+            .Where(l => l.TalhaoId == talhaoId &&
+                        l.DataHoraLeitura >= inicio &&
                         l.DataHoraLeitura <= fim)
             .OrderByDescending(l => l.DataHoraLeitura)
             .ToListAsync();
@@ -98,7 +98,7 @@ public class LeituraSensorRepository : ILeituraSensorRepository
         var dataLimite = DateTime.UtcNow.AddHours(-horas);
         var leituras = await _context.LeiturasSensores
             .AsNoTracking()
-            .Where(l => l.TalhaoId == talhaoId && 
+            .Where(l => l.TalhaoId == talhaoId &&
                         l.DataHoraLeitura >= dataLimite &&
                         l.UmidadeSolo.HasValue)
             .Select(l => l.UmidadeSolo)
@@ -112,7 +112,7 @@ public class LeituraSensorRepository : ILeituraSensorRepository
         var dataLimite = DateTime.UtcNow.AddHours(-horas);
         var leituras = await _context.LeiturasSensores
             .AsNoTracking()
-            .Where(l => l.TalhaoId == talhaoId && 
+            .Where(l => l.TalhaoId == talhaoId &&
                         l.DataHoraLeitura >= dataLimite &&
                         l.Temperatura.HasValue)
             .Select(l => l.Temperatura)

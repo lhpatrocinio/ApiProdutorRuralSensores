@@ -9,7 +9,7 @@ public class TalhaoStatusResponse
     public DateTime? UltimaLeitura { get; set; }
     public int TotalSensores { get; set; }
     public int SensoresAtivos { get; set; }
-    
+
     /// <summary>
     /// Última leitura de cada tipo de dado
     /// </summary>

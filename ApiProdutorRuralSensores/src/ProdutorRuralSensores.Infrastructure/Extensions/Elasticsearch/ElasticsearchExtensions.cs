@@ -8,7 +8,7 @@ namespace ProdutorRuralSensores.Infrastructure.Extensions.Elasticsearch
     {
         public static IServiceCollection AddElasticsearch(this IServiceCollection services, IConfiguration configuration)
         {
-            var elasticUri = configuration.GetConnectionString("Elasticsearch") ?? "http://localhost:9200"; 
+            var elasticUri = configuration.GetConnectionString("Elasticsearch") ?? "http://localhost:9200";
             return services;
         }
     }

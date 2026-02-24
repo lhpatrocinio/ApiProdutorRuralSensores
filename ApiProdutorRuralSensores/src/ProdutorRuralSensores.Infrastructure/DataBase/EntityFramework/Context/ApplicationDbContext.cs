@@ -20,7 +20,7 @@ namespace ProdutorRuralSensores.Infrastructure.DataBase.EntityFramework.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            
+
             builder.ApplyConfiguration(new SensorConfiguration());
             builder.ApplyConfiguration(new LeituraSensorConfiguration());
         }

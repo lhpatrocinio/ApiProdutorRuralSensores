@@ -42,7 +42,7 @@ public class LeituraEventPublisherAdapter : ILeituraEventPublisher
             };
 
             await _sensorDataPublisher.PublishAsync(@event);
-            
+
             _logger.LogDebug("Evento de leitura publicado: {LeituraId}", leitura.Id);
         }
         catch (Exception ex)

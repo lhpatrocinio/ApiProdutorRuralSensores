@@ -50,7 +50,7 @@ public class SensoresController : ControllerBase
     {
         _logger.LogInformation("Buscando sensor por ID: {SensorId}", id);
         var sensor = await _sensorService.GetByIdAsync(id);
-        
+
         if (sensor == null)
             return NotFound(new { message = "Sensor não encontrado" });
 
@@ -69,7 +69,7 @@ public class SensoresController : ControllerBase
     {
         _logger.LogInformation("Buscando sensor por código: {Codigo}", codigo);
         var sensor = await _sensorService.GetByCodigoAsync(codigo);
-        
+
         if (sensor == null)
             return NotFound(new { message = "Sensor não encontrado" });
 
@@ -116,7 +116,7 @@ public class SensoresController : ControllerBase
     {
         _logger.LogInformation("Buscando sensor {SensorId} com últimas {QtdLeituras} leituras", id, ultimasLeituras);
         var sensor = await _sensorService.GetWithLeiturasAsync(id, ultimasLeituras);
-        
+
         if (sensor == null)
             return NotFound(new { message = "Sensor não encontrado" });
 
@@ -134,7 +134,7 @@ public class SensoresController : ControllerBase
     public async Task<ActionResult<SensorResponse>> Create([FromBody] SensorCreateRequest request)
     {
         _logger.LogInformation("Cadastrando novo sensor: {Codigo} no talhão {TalhaoId}", request.Codigo, request.TalhaoId);
-        
+
         // Verificar se já existe sensor com mesmo código
         var existente = await _sensorService.GetByCodigoAsync(request.Codigo);
         if (existente != null)
@@ -142,7 +142,7 @@ public class SensoresController : ControllerBase
 
         var sensor = await _sensorService.CreateAsync(request);
         _logger.LogInformation("Sensor cadastrado com sucesso: {SensorId}", sensor.Id);
-        
+
         return CreatedAtAction(nameof(GetById), new { id = sensor.Id }, sensor);
     }
 
@@ -174,7 +174,7 @@ public class SensoresController : ControllerBase
 
         var sensor = await _sensorService.UpdateAsync(id, request);
         _logger.LogInformation("Sensor atualizado com sucesso: {SensorId}", id);
-        
+
         return Ok(sensor);
     }
 
@@ -189,7 +189,7 @@ public class SensoresController : ControllerBase
     public async Task<IActionResult> Delete(Guid id)
     {
         _logger.LogInformation("Removendo sensor: {SensorId}", id);
-        
+
         var deleted = await _sensorService.DeleteAsync(id);
         if (!deleted)
             return NotFound(new { message = "Sensor não encontrado" });
@@ -210,7 +210,7 @@ public class SensoresController : ControllerBase
     public async Task<IActionResult> AtivarDesativar(Guid id, [FromQuery] bool ativo)
     {
         _logger.LogInformation("Alterando status do sensor {SensorId} para {Status}", id, ativo ? "ativo" : "inativo");
-        
+
         var result = await _sensorService.AtivarDesativarAsync(id, ativo);
         if (!result)
             return NotFound(new { message = "Sensor não encontrado" });

@@ -37,7 +37,7 @@ public class LeiturasController : ControllerBase
     {
         _logger.LogInformation("Buscando leitura por ID: {LeituraId}", id);
         var leitura = await _leituraService.GetByIdAsync(id);
-        
+
         if (leitura == null)
             return NotFound(new { message = "Leitura não encontrada" });
 
@@ -53,9 +53,9 @@ public class LeiturasController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<LeituraResponse>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<LeituraResponse>>> GetWithFiltros([FromQuery] LeituraFiltroRequest filtros)
     {
-        _logger.LogInformation("Listando leituras com filtros: TalhaoId={TalhaoId}, SensorId={SensorId}", 
+        _logger.LogInformation("Listando leituras com filtros: TalhaoId={TalhaoId}, SensorId={SensorId}",
             filtros.TalhaoId, filtros.SensorId);
-        
+
         var leituras = await _leituraService.GetWithFiltrosAsync(filtros);
         return Ok(leituras);
     }
@@ -101,8 +101,8 @@ public class LeiturasController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<LeituraResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<LeituraResponse>>> GetByPeriodo(
-        Guid talhaoId, 
-        [FromQuery] DateTime inicio, 
+        Guid talhaoId,
+        [FromQuery] DateTime inicio,
         [FromQuery] DateTime fim)
     {
         if (inicio > fim)
@@ -125,7 +125,7 @@ public class LeiturasController : ControllerBase
     {
         _logger.LogInformation("Buscando última leitura do talhão: {TalhaoId}", talhaoId);
         var leitura = await _leituraService.GetUltimaLeituraAsync(talhaoId);
-        
+
         if (leitura == null)
             return NotFound(new { message = "Nenhuma leitura encontrada para este talhão" });
 
@@ -171,14 +171,14 @@ public class LeiturasController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<LeituraResponse>> Create([FromBody] LeituraCreateRequest request)
     {
-        _logger.LogInformation("Recebendo leitura do talhão {TalhaoId}, sensor {SensorId}/{CodigoSensor}", 
+        _logger.LogInformation("Recebendo leitura do talhão {TalhaoId}, sensor {SensorId}/{CodigoSensor}",
             request.TalhaoId, request.SensorId, request.CodigoSensor);
-        
+
         var leitura = await _leituraService.CreateAsync(request);
-        
-        _logger.LogInformation("Leitura registrada com sucesso: {LeituraId}, Umidade={Umidade}%, Temp={Temp}°C", 
+
+        _logger.LogInformation("Leitura registrada com sucesso: {LeituraId}, Umidade={Umidade}%, Temp={Temp}°C",
             leitura.Id, leitura.UmidadeSolo, leitura.Temperatura);
-        
+
         return CreatedAtAction(nameof(GetById), new { id = leitura.Id }, leitura);
     }
 
@@ -194,11 +194,11 @@ public class LeiturasController : ControllerBase
     public async Task<ActionResult<IEnumerable<LeituraResponse>>> CreateBatch([FromBody] LeituraBatchRequest request)
     {
         _logger.LogInformation("Recebendo batch de {Quantidade} leituras", request.Leituras.Count);
-        
+
         var leituras = await _leituraService.CreateBatchAsync(request);
-        
+
         _logger.LogInformation("Batch de {Quantidade} leituras registrado com sucesso", request.Leituras.Count);
-        
+
         return Created("", leituras);
     }
 
@@ -225,9 +225,9 @@ public class LeiturasController : ControllerBase
         if (agregacao.ToLower() != "hora" && agregacao.ToLower() != "dia")
             return BadRequest(new { message = "Agregação deve ser 'hora' ou 'dia'" });
 
-        _logger.LogInformation("Obtendo dados agregados do talhão {TalhaoId} de {Inicio} a {Fim}, agregação: {Agregacao}", 
+        _logger.LogInformation("Obtendo dados agregados do talhão {TalhaoId} de {Inicio} a {Fim}, agregação: {Agregacao}",
             talhaoId, inicio, fim, agregacao);
-        
+
         var dados = await _leituraService.GetAgregadoAsync(talhaoId, inicio, fim, agregacao);
         return Ok(dados);
     }

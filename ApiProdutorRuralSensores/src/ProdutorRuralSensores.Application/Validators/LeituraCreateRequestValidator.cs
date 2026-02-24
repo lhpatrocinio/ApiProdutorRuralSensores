@@ -74,9 +74,9 @@ public class LeituraCreateRequestValidator : AbstractValidator<LeituraCreateRequ
 
         // Deve ter pelo menos um valor de leitura
         RuleFor(x => x)
-            .Must(x => x.UmidadeSolo.HasValue || 
-                       x.Temperatura.HasValue || 
-                       x.Precipitacao.HasValue || 
+            .Must(x => x.UmidadeSolo.HasValue ||
+                       x.Temperatura.HasValue ||
+                       x.Precipitacao.HasValue ||
                        x.UmidadeAr.HasValue ||
                        x.VelocidadeVento.HasValue ||
                        x.RadiacaoSolar.HasValue ||

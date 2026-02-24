@@ -60,7 +60,7 @@ public class SensorDataPublisher : ISensorDataPublisher
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, 
+            _logger.LogError(ex,
                 "Erro ao publicar evento SensorDataReceivedEvent. TalhaoId: {TalhaoId}, LeituraId: {LeituraId}",
                 @event.TalhaoId, @event.LeituraId);
             throw;

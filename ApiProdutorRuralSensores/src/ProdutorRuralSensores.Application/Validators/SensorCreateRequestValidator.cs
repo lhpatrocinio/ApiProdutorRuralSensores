@@ -24,8 +24,8 @@ public class SensorCreateRequestValidator : AbstractValidator<SensorCreateReques
         RuleFor(x => x.Tipo)
             .NotEmpty()
             .WithMessage("O tipo do sensor é obrigatório")
-            .Must(tipo => tipo == TipoSensor.Umidade || 
-                          tipo == TipoSensor.Temperatura || 
+            .Must(tipo => tipo == TipoSensor.Umidade ||
+                          tipo == TipoSensor.Temperatura ||
                           tipo == TipoSensor.Multiparametro)
             .WithMessage($"O tipo do sensor deve ser: {TipoSensor.Umidade}, {TipoSensor.Temperatura} ou {TipoSensor.Multiparametro}");
 
