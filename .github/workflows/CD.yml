@@ -23,13 +23,13 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restaurar pacotes
-        run: dotnet restore src/ProdutorRuralSensores.Api/ProdutorRuralSensores.Api.csproj
+        run: dotnet restore ApiProdutorRuralSensores/src/ProdutorRuralSensores.Api/ProdutorRuralSensores.Api.csproj
 
       - name: Compilar projeto
-        run: dotnet build src/ProdutorRuralSensores.Api/ProdutorRuralSensores.Api.csproj --configuration Release --no-restore
+        run: dotnet build ApiProdutorRuralSensores/src/ProdutorRuralSensores.Api/ProdutorRuralSensores.Api.csproj --configuration Release --no-restore
 
       - name: Publicar projeto
-        run: dotnet publish src/ProdutorRuralSensores.Api/ProdutorRuralSensores.Api.csproj -c Release -o ${{ github.workspace }}/publish
+        run: dotnet publish ApiProdutorRuralSensores/src/ProdutorRuralSensores.Api/ProdutorRuralSensores.Api.csproj -c Release -o ${{ github.workspace }}/publish
       
       - name: Instalar dotnet-ef CLI
         run: dotnet tool install --global dotnet-ef
