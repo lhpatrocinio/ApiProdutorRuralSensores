@@ -48,7 +48,7 @@ jobs:
         run: echo "${{ secrets.ACR_PASSWORD }}" | docker login acrinfiniteloops.azurecr.io -u ${{ secrets.ACR_USERNAME }} --password-stdin
         
       - name: Build da imagem
-        run: docker build -t acrinfiniteloops.azurecr.io/apiprodutorruralsensores:latest -f ApiProdutorRuralSensores/src/ProdutorRuralSensores.Api/Dockerfile .
+        run: docker build -t acrinfiniteloops.azurecr.io/apiprodutorruralsensores:latest -f ApiProdutorRuralSensores/src/ProdutorRuralSensores.Api/Dockerfile ApiProdutorRuralSensores
 
       - name: Push da imagem
         run: docker push acrinfiniteloops.azurecr.io/apiprodutorruralsensores:latest    
