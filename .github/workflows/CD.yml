@@ -1,0 +1,69 @@
+name: CD - Deploy to Azure App Service
+
+on:
+  push:
+    branches:
+      - main
+      
+permissions:
+  id-token: write
+  contents: read
+  
+jobs:
+  build-publish-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restaurar pacotes
+        run: dotnet restore src/ProdutorRuralSensores.Api/ProdutorRuralSensores.Api.csproj
+
+      - name: Compilar projeto
+        run: dotnet build src/ProdutorRuralSensores.Api/ProdutorRuralSensores.Api.csproj --configuration Release --no-restore
+
+      - name: Publicar projeto
+        run: dotnet publish src/ProdutorRuralSensores.Api/ProdutorRuralSensores.Api.csproj -c Release -o ${{ github.workspace }}/publish
+      
+      - name: Instalar dotnet-ef CLI
+        run: dotnet tool install --global dotnet-ef
+
+      - name: Adicionar ferramentas globais ao PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+          
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.APIPRODUTORRURALSENSORES_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.APIPRODUTORRURALSENSORES_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.APIPRODUTORRURALSENSORES_AZURE_SUBSCRIPTION_ID }}   
+          
+      - name: Login no Azure Container Registry (ACR)
+        run: echo "${{ secrets.ACR_PASSWORD }}" | docker login acrinfiniteloops.azurecr.io -u ${{ secrets.ACR_USERNAME }} --password-stdin
+        
+      - name: Build da imagem
+        run: docker build -t acrinfiniteloops.azurecr.io/apiprodutorruralsensores:latest -f src/ProdutorRuralSensores.Api/Dockerfile .
+
+      - name: Push da imagem
+        run: docker push acrinfiniteloops.azurecr.io/apiprodutorruralsensores:latest    
+
+      - name: Implantar aplicativo no azure container
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          _dockerfilePathKey_: _dockerfilePath_
+          _targetLabelKey_: _targetLabel_
+          registryUrl: acrinfiniteloops.azurecr.io
+          registryUsername: ${{ secrets.APIPRODUTORRURALSENSORES_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.APIPRODUTORRURALSENSORES_REGISTRY_PASSWORD }}
+          containerAppName: apiprodutorruralsensores
+          resourceGroup: fiap
+          imageToBuild: acrinfiniteloops.azurecr.io/apiprodutorruralsensores:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
